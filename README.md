@@ -21,7 +21,10 @@ import (
 )
 
 func main()  {
+    // 加载本地json数据
 	idcard.Init("./area.json")
+    // 加载网络配置
+    // idcard.Init("")
 	fmt.Println(idcard.Check("xxxxxxxxxxxxxxxxxx"))
 }
 ```

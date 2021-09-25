@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"net/http"
 	"strconv"
 	"strings"
 	"time"
@@ -15,14 +16,27 @@ var area = make(map[string]string)
 func Init(c string)  {
 	raw, err := ioutil.ReadFile(c)
 	if err != nil {
-		fmt.Println("无本地配置文件：%w", err)
-		err = nil
-		return
+		url := "https://raw.githubusercontent.com/zngw/idcard/main/area.json"
+		fmt.Printf("加载本地配置文件失败：%s， 加载网络配置：%s\n", err.Error(), url)
+
+		//从url获取json数据
+		res, err := http.Get(url)
+		if err != nil {
+			fmt.Printf("加载网络配置失败：%s\n", err.Error())
+			return
+		}
+		defer res.Body.Close()
+
+		raw, err = ioutil.ReadAll(res.Body)
+		if err != nil {
+			fmt.Printf("加载网络配置失败：%s\n", err.Error())
+			return
+		}
 	}
 
 	err = json.Unmarshal(raw, &area)
 	if err != nil {
-		err = fmt.Errorf("解析基本配置文件失败：%w", err)
+		err = fmt.Errorf("解析基本配置文件失败：%s\n", err.Error())
 		return
 	}
 }
@@ -30,6 +44,7 @@ func Init(c string)  {
 func Check(id string) bool {
 	// 身份证位数不对
 	if len(id) != 15 && len(id) != 18 {
+		fmt.Println(id,"身份证长度不对！")
 		return false
 	}
 
