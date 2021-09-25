@@ -1,4 +1,4 @@
-package main
+package idcard
 
 import (
 	"encoding/json"
