@@ -2,6 +2,8 @@
 
 身份证验证
 
+area.json 更新于 [2020年中华人民共和国行政区划代码](http://www.mca.gov.cn/article/sj/xzqh/1980/202105/20210500033655.shtml)
+
 # 安装
 
 ```bash
