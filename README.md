@@ -29,7 +29,7 @@ area合并于 [中华人民共各国民政部官网数据](http://www.mca.gov.cn
 # 安装
 
 ```bash
-$ go get -u github.com/guanguans/id-validator
+$ go get -u github.com/zngw/idcard
 ```
 
 # 使用
